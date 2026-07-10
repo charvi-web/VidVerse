@@ -1,10 +1,22 @@
+import Hero from "../components/hero/Hero";
+import Features from "../components/sections/Features";
+import Categories from "../components/sections/Categories";
+import Trending from "../components/sections/Trending";
+import PopularCreators from "../components/sections/PopularCreators";
+import FooterCTA from "../components/sections/FooterCTA";
+import Footer from "../components/layout/Footer";
+
 const Home = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center">
-      <h1 className="text-6xl font-bold">
-        Welcome to <span className="text-indigo-500">VIDVERSE</span>
-      </h1>
-    </section>
+    <>
+      <Hero />
+      <Features />
+      <Categories />
+      <Trending />
+      <PopularCreators />
+      <FooterCTA />
+      <Footer />
+    </>
   );
 };
 

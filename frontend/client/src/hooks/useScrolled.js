@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 
-export default function useScrolled() {
+const useScrolled = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handler = () => {
-      setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
     };
 
-    window.addEventListener("scroll", handler);
+    window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handler);
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
   }, []);
 
   return scrolled;
-}
+};
+
+export default useScrolled;

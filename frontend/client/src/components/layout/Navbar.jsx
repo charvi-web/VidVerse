@@ -1,21 +1,48 @@
+import Logo from "./Logo";
+import DesktopNav from "./DesktopNav";
+import MobileMenu from "./MobileMenu";
+import GlowButton from "../ui/GlowButton";
+import Container from "../ui/Container";
+import useScrolled from "../../hooks/useScrolled";
+
 const Navbar = () => {
+  const scrolled = useScrolled();
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/5 border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header
+      className={`
+        fixed
+        top-0
+        left-0
+        right-0
+        z-50
+        transition-all
+        duration-500
+        ${
+          scrolled
+            ? "border-b border-white/10 bg-black/40 backdrop-blur-3xl"
+            : "bg-transparent"
+        }
+      `}
+    >
+      <Container>
+        <div className="flex h-20 items-center justify-between">
 
-        <h1 className="text-2xl font-bold tracking-tight">
-          VID<span className="text-indigo-500">VERSE</span>
-        </h1>
+          <Logo />
 
-        <div className="flex gap-8 text-sm">
-          <button>Home</button>
-          <button>Explore</button>
-          <button>Upload</button>
-          <button>Login</button>
+          <DesktopNav />
+
+          <div className="hidden lg:block">
+            <GlowButton>
+              Get Started
+            </GlowButton>
+          </div>
+
+          <MobileMenu />
+
         </div>
-
-      </div>
-    </nav>
+      </Container>
+    </header>
   );
 };
 
