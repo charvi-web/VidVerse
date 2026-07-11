@@ -6,12 +6,23 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
-import { AuthProvider } from "./context/AuthContext";
-
 import App from "./App";
+import { AuthProvider } from "./context/AuthContext";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -22,12 +33,21 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
           <Toaster
             position="top-right"
+            reverseOrder={false}
+            gutter={8}
             toastOptions={{
               duration: 3000,
               style: {
                 background: "#18181B",
-                color: "#fff",
-                border: "1px solid rgba(255,255,255,.08)",
+                color: "#ffffff",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "12px",
+              },
+              success: {
+                duration: 2500,
+              },
+              error: {
+                duration: 4000,
               },
             }}
           />

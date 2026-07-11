@@ -16,46 +16,30 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   const [loading, setLoading] = useState(true);
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // -----------------------------
-  // Load Logged In User
-  // -----------------------------
+  // Load Current User
   const loadUser = async () => {
     try {
-      setLoading(true);
-
       const response = await getCurrentUser();
 
       setUser(response.data);
-
       setIsAuthenticated(true);
-    } catch (error) {
-      console.log(error);
-
+    } catch {
       setUser(null);
-
       setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
   };
 
-  // -----------------------------
   // Register
-  // -----------------------------
   const register = async (formData) => {
-    const response = await registerUser(formData);
-
-    return response;
+    return await registerUser(formData);
   };
 
-  // -----------------------------
   // Login
-  // -----------------------------
   const login = async (credentials) => {
     const response = await loginUser(credentials);
 
@@ -64,49 +48,52 @@ export const AuthProvider = ({ children }) => {
     return response;
   };
 
-  // -----------------------------
   // Logout
-  // -----------------------------
   const logout = async () => {
     try {
       await logoutUser();
     } finally {
       setUser(null);
-
       setIsAuthenticated(false);
     }
   };
 
-  // -----------------------------
-  // On App Load
-  // -----------------------------
   useEffect(() => {
+    // The request resolves asynchronously; state is updated from its result.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadUser();
   }, []);
 
-  const value = {
-    user,
-
-    loading,
-
-    isAuthenticated,
-
-    login,
-
-    logout,
-
-    register,
-
-    loadUser,
-
-    setUser,
-  };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated,
+        login,
+        logout,
+        register,
+        loadUser,
+        setUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
+};
+
+// ✅ Custom Hook
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error(
+      "useAuth must be used inside AuthProvider"
+    );
+  }
+
+  return context;
 };
 
 export default AuthContext;

@@ -32,10 +32,26 @@ const stats = [
 const HeroStats = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8, duration: 0.8 }}
-      className="mt-20 grid w-full max-w-5xl grid-cols-2 gap-5 md:grid-cols-4"
+      transition={{ delay: 0.8, duration: 0.7 }}
+      className="
+        mt-16
+        flex
+        w-full
+        max-w-4xl
+        flex-wrap
+        justify-center
+        divide-x
+        divide-white/10
+        rounded-2xl
+        border
+        border-white/10
+        bg-white/[0.03]
+        px-6
+        py-5
+        backdrop-blur-lg
+      "
     >
       {stats.map((item, index) => {
         const Icon = item.icon;
@@ -43,46 +59,36 @@ const HeroStats = () => {
         return (
           <motion.div
             key={item.label}
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{
-              delay: 0.9 + index * 0.15,
-              duration: 0.6,
-            }}
-            whileHover={{
-              y: -8,
-              scale: 1.03,
+              delay: 0.9 + index * 0.1,
             }}
             className="
-              rounded-2xl
-              border border-white/10
-              bg-white/5
-              backdrop-blur-xl
-              p-6
-              transition-all
-              duration-300
-              hover:border-indigo-500/30
-              hover:bg-white/10
-              hover:shadow-xl
-              hover:shadow-indigo-500/10
+              flex
+              min-w-[150px]
+              flex-1
+              items-center
+              justify-center
+              gap-3
+              px-6
+              py-3
             "
           >
-            <div className="mb-4 flex justify-center">
-              <div className="rounded-xl bg-indigo-500/15 p-3">
-                <Icon
-                  size={26}
-                  className="text-indigo-400"
-                />
-              </div>
+            <Icon
+              size={22}
+              className="text-zinc-400"
+            />
+
+            <div className="text-left">
+              <h2 className="text-2xl font-bold text-white">
+                {item.number}
+              </h2>
+
+              <p className="text-xs text-zinc-500">
+                {item.label}
+              </p>
             </div>
-
-            <h2 className="text-3xl font-extrabold text-white">
-              {item.number}
-            </h2>
-
-            <p className="mt-2 text-sm tracking-wide text-zinc-400">
-              {item.label}
-            </p>
           </motion.div>
         );
       })}

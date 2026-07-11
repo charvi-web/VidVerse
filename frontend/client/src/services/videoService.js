@@ -4,15 +4,11 @@ import API from "../api/axios";
 // Publish Video
 // =========================
 export const publishVideo = async (formData) => {
-  const { data } = await API.post(
-    "/video/publish",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const { data } = await API.post("/videos", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return data;
 };
@@ -21,7 +17,7 @@ export const publishVideo = async (formData) => {
 // Get All Videos
 // =========================
 export const getAllVideos = async (params = {}) => {
-  const { data } = await API.get("/video", {
+  const { data } = await API.get("/videos", {
     params,
   });
 
@@ -32,7 +28,7 @@ export const getAllVideos = async (params = {}) => {
 // Get Video By Id
 // =========================
 export const getVideoById = async (id) => {
-  const { data } = await API.get(`/video/${id}`);
+  const { data } = await API.get(`/videos/v/${id}`);
 
   return data;
 };
@@ -41,9 +37,7 @@ export const getVideoById = async (id) => {
 // Delete Video
 // =========================
 export const deleteVideo = async (id) => {
-  const { data } = await API.delete(
-    `/video/${id}`
-  );
+  const { data } = await API.delete(`/videos/v/${id}`);
 
   return data;
 };
@@ -51,19 +45,12 @@ export const deleteVideo = async (id) => {
 // =========================
 // Update Video
 // =========================
-export const updateVideo = async (
-  id,
-  formData
-) => {
-  const { data } = await API.patch(
-    `/video/${id}`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+export const updateVideo = async (id, formData) => {
+  const { data } = await API.patch(`/videos/v/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return data;
 };
@@ -72,9 +59,7 @@ export const updateVideo = async (
 // Toggle Publish
 // =========================
 export const togglePublish = async (id) => {
-  const { data } = await API.patch(
-    `/video/toggle/publish/${id}`
-  );
+  const { data } = await API.patch(`/videos/toggle/publish/${id}`);
 
   return data;
 };

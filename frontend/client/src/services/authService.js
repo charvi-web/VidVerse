@@ -63,10 +63,7 @@ export const refreshToken = async () => {
 // Update Account
 // ==============================
 export const updateAccount = async (payload) => {
-  const { data } = await API.patch(
-    "/users/update-account",
-    payload
-  );
+  const { data } = await API.patch("/users/update-account", payload);
 
   return data;
 };
@@ -75,10 +72,7 @@ export const updateAccount = async (payload) => {
 // Change Password
 // ==============================
 export const changePassword = async (payload) => {
-  const { data } = await API.patch(
-    "/users/change-password",
-    payload
-  );
+  const { data } = await API.patch("/users/change-password", payload);
 
   return data;
 };
@@ -87,15 +81,11 @@ export const changePassword = async (payload) => {
 // Update Avatar
 // ==============================
 export const updateAvatar = async (formData) => {
-  const { data } = await API.patch(
-    "/users/avatar",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const { data } = await API.patch("/users/avatar", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return data;
 };
@@ -104,15 +94,11 @@ export const updateAvatar = async (formData) => {
 // Update Cover Image
 // ==============================
 export const updateCoverImage = async (formData) => {
-  const { data } = await API.patch(
-    "/users/cover-image",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const { data } = await API.patch("/users/cover-image", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return data;
 };
@@ -121,9 +107,7 @@ export const updateCoverImage = async (formData) => {
 // Get User Channel Profile
 // ==============================
 export const getChannelProfile = async (username) => {
-  const { data } = await API.get(
-    `/users/c/${username}`
-  );
+  const { data } = await API.get(`/users/c/${username}`);
 
   return data;
 };
@@ -132,29 +116,22 @@ export const getChannelProfile = async (username) => {
 // Get Watch History
 // ==============================
 export const getWatchHistory = async () => {
-  const { data } = await API.get(
-    "/users/history"
-  );
+  const { data } = await API.get("/users/history");
 
   return data;
 };
 
 // ==============================
-// Delete Account (Optional)
+// Delete Account
 // ==============================
 export const deleteAccount = async () => {
-  const { data } = await API.delete(
-    "/users/delete-account"
-  );
+  const { data } = await API.delete("/users/delete-account");
 
   localStorage.removeItem("accessToken");
 
   return data;
 };
 
-// ==============================
-// Export All Services
-// ==============================
 const authService = {
   registerUser,
   loginUser,

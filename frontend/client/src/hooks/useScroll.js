@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 
-const useScroll = () => {
-  const [scrollY, setScrollY] = useState(0);
+const useMousePosition = () => {
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
-    const handle = () => {
-      setScrollY(window.scrollY);
+    const handleMove = (event) => {
+      setPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
     };
 
-    window.addEventListener("scroll", handle);
+    window.addEventListener("mousemove", handleMove);
 
-    return () =>
-      window.removeEventListener("scroll", handle);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+    };
   }, []);
 
-  return scrollY;
+  return position;
 };
 
-export default useScroll;
+export default useMousePosition;

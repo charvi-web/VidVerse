@@ -2,63 +2,80 @@ import { motion } from "motion/react";
 
 const orbs = [
   {
-    size: 220,
-    top: "12%",
-    left: "8%",
-    color: "bg-indigo-500/20",
-    duration: 8,
+    size: 350,
+    top: "5%",
+    left: "-8%",
+    color: "bg-indigo-500/30",
+    duration: 12,
   },
   {
-    size: 170,
-    top: "68%",
-    left: "18%",
-    color: "bg-cyan-500/20",
-    duration: 10,
+    size: 320,
+    top: "20%",
+    right: "-10%",
+    color: "bg-purple-500/35",
+    duration: 15,
   },
   {
     size: 260,
-    top: "18%",
-    right: "10%",
-    color: "bg-purple-500/20",
-    duration: 9,
-  },
-  {
-    size: 180,
-    bottom: "10%",
-    right: "20%",
-    color: "bg-pink-500/20",
-    duration: 11,
+    bottom: "5%",
+    left: "35%",
+    color: "bg-cyan-400/25",
+    duration: 18,
   },
 ];
 
+
 const FloatingOrbs = () => {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {orbs.map((orb, index) => (
+    <div
+      className="
+        pointer-events-none
+        absolute
+        inset-0
+        z-0
+        overflow-hidden
+      "
+    >
+
+      {orbs.map((orb,index)=>(
         <motion.div
+
           key={index}
+
           animate={{
-            y: [0, -25, 0],
-            x: [0, 15, 0],
+            y:[0,-50,0],
+            x:[0,30,0],
+            scale:[1,1.08,1],
           }}
+
           transition={{
-            repeat: Infinity,
-            duration: orb.duration,
-            ease: "easeInOut",
+            duration:orb.duration,
+            repeat:Infinity,
+            ease:"easeInOut",
           }}
-          className={`absolute rounded-full blur-3xl ${orb.color}`}
+
+          className={`
+            absolute
+            rounded-full
+            ${orb.color}
+            blur-[120px]
+          `}
+
           style={{
-            width: orb.size,
-            height: orb.size,
-            top: orb.top,
-            left: orb.left,
-            right: orb.right,
-            bottom: orb.bottom,
+            width:orb.size,
+            height:orb.size,
+            top:orb.top,
+            left:orb.left,
+            right:orb.right,
+            bottom:orb.bottom,
           }}
+
         />
       ))}
+
     </div>
   );
 };
+
 
 export default FloatingOrbs;

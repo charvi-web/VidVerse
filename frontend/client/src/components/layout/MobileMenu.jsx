@@ -1,11 +1,27 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Upload, History, LogOut, User } from "lucide-react";
+import toast from "react-hot-toast";
+
 import { navigation } from "../../constants/navigation";
+import useAuth from "../../hooks/useAuth";
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("Logged out successfully");
+      setOpen(false);
+      navigate("/");
+    } catch {
+      toast.error("Failed to logout");
+    }
+  };
 
   return (
     <>
@@ -71,7 +87,7 @@ const MobileMenu = () => {
               "
             >
               {/* Close */}
-              <div className="mb-10 flex justify-end">
+              <div className="mb-6 flex justify-end">
                 <button
                   onClick={() => setOpen(false)}
                   className="
@@ -86,8 +102,31 @@ const MobileMenu = () => {
                 </button>
               </div>
 
+              {/* Profile summary */}
+              {isAuthenticated && user && (
+                <Link
+                  to={`/profile/${user.username}`}
+                  onClick={() => setOpen(false)}
+                  className="mb-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3"
+                >
+                  <img
+                    src={user.avatar?.url}
+                    alt={user.username}
+                    className="h-11 w-11 rounded-full object-cover"
+                  />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-white">
+                      {user.fullName}
+                    </p>
+                    <p className="truncate text-xs text-zinc-500">
+                      @{user.username}
+                    </p>
+                  </div>
+                </Link>
+              )}
+
               {/* Links */}
-              <nav className="flex flex-col gap-6">
+              <nav className="flex flex-col gap-2">
                 {navigation.map((item) => (
                   <NavLink
                     key={item.href}
@@ -111,25 +150,81 @@ const MobileMenu = () => {
                     {item.title}
                   </NavLink>
                 ))}
+
+                {isAuthenticated && (
+                  <>
+                    <div className="my-2 border-t border-white/10" />
+
+                    <Link
+                      to="/upload"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-zinc-300 hover:bg-white/5 hover:text-white"
+                    >
+                      <Upload size={18} />
+                      Upload Video
+                    </Link>
+
+                    <Link
+                      to="/history"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-zinc-300 hover:bg-white/5 hover:text-white"
+                    >
+                      <History size={18} />
+                      Watch History
+                    </Link>
+                  </>
+                )}
               </nav>
 
               {/* CTA */}
-              <button
-                className="
-                  mt-auto
-                  rounded-2xl
-                  bg-gradient-to-r
-                  from-indigo-600
-                  to-purple-600
-                  py-4
-                  font-semibold
-                  text-white
-                  transition-all
-                  hover:scale-[1.02]
-                "
-              >
-                Get Started
-              </button>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="
+                    mt-auto
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-2xl
+                    border
+                    border-red-500/20
+                    bg-red-500/10
+                    py-4
+                    font-semibold
+                    text-red-400
+                    transition-all
+                    hover:bg-red-500/20
+                  "
+                >
+                  <LogOut size={18} />
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                  className="
+                    mt-auto
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-2xl
+                    bg-gradient-to-r
+                    from-indigo-600
+                    to-purple-600
+                    py-4
+                    font-semibold
+                    text-white
+                    transition-all
+                    hover:scale-[1.02]
+                  "
+                >
+                  <User size={18} />
+                  Get Started
+                </Link>
+              )}
             </motion.div>
           </>
         )}

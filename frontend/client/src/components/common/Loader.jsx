@@ -2,25 +2,56 @@ import { motion } from "motion/react";
 
 const Loader = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#09090B]">
+    <div
+      className="
+        flex
+        min-h-screen
+        items-center
+        justify-center
+        bg-[#050505]
+      "
+    >
+
       <motion.div
+        initial={{
+          opacity:0,
+          scale:0.7,
+        }}
+
         animate={{
-          rotate: 360,
+          opacity:1,
+          scale:1,
+          rotate:360,
         }}
+
         transition={{
-          duration: 1.2,
-          repeat: Infinity,
-          ease: "linear",
+          opacity:{
+            duration:0.5,
+          },
+
+          scale:{
+            duration:0.5,
+          },
+
+          rotate:{
+            duration:1.2,
+            repeat:Infinity,
+            ease:"linear",
+          },
         }}
+
         className="
-          h-14
-          w-14
+          relative
+          h-16
+          w-16
           rounded-full
           border-4
-          border-indigo-500
+          border-violet-500
           border-t-transparent
+          shadow-[0_0_40px_rgba(139,92,246,0.6)]
         "
       />
+
     </div>
   );
 };

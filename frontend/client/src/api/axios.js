@@ -1,16 +1,21 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL:
+    import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1",
+
   withCredentials: true,
+
+  timeout: 30000,
+
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// -----------------------------
+// =========================
 // Request Interceptor
-// -----------------------------
+// =========================
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
@@ -24,16 +29,25 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// -----------------------------
+// =========================
 // Response Interceptor
-// -----------------------------
+// =========================
 API.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    console.error(
-      "API Error:",
-      error.response?.data?.message || error.message
-    );
+
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("accessToken");
+    }
+
+    // Don't log cancelled requests
+    if (!axios.isCancel(error)) {
+      console.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Something went wrong"
+      );
+    }
 
     return Promise.reject(error);
   }

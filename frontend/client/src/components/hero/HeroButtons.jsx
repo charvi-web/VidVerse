@@ -1,66 +1,153 @@
 import { motion } from "motion/react";
 import { Play, Compass } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const HeroButtons = () => {
+
+  const navigate = useNavigate();
+
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.6, duration: 0.7 }}
-      className="mt-12 flex flex-wrap items-center justify-center gap-5"
+      initial={{
+        opacity:0,
+        y:25
+      }}
+
+      animate={{
+        opacity:1,
+        y:0
+      }}
+
+      transition={{
+        delay:0.55,
+        duration:0.6
+      }}
+
+      className="
+        mt-10
+        flex
+        flex-wrap
+        items-center
+        justify-center
+        gap-4
+      "
     >
-      <button
+
+
+      {/* Primary Button */}
+
+      <motion.button
+
+        whileHover={{
+          y:-4,
+          scale:1.05
+        }}
+
+        whileTap={{
+          scale:0.95
+        }}
+
+        onClick={()=>{
+          navigate("/watch");
+        }}
+
         className="
           group
-          flex items-center gap-2
-          rounded-2xl
-          bg-gradient-to-r
-          from-indigo-600
-          to-purple-600
-          px-8 py-4
+          relative
+          flex
+          items-center
+          gap-3
+          overflow-hidden
+          rounded-xl
+          bg-white
+          px-8
+          py-4
           font-semibold
-          text-white
-          shadow-lg shadow-indigo-600/25
-          transition-all
-          duration-300
-          hover:scale-105
-          hover:shadow-indigo-500/50
+          text-black
+          shadow-[0_0_40px_rgba(255,255,255,0.15)]
         "
       >
-        <Play
-          size={18}
-          className="transition-transform duration-300 group-hover:translate-x-1"
-        />
-        Start Watching
-      </button>
 
-      <button
+        <Play
+          size={17}
+          fill="currentColor"
+          className="
+            transition-transform
+            duration-300
+            group-hover:translate-x-1
+          "
+        />
+
+        <span>
+          Start Watching
+        </span>
+
+
+      </motion.button>
+
+
+
+
+      {/* Secondary Button */}
+
+      <motion.button
+
+        whileHover={{
+          y:-4,
+          scale:1.05
+        }}
+
+        whileTap={{
+          scale:0.95
+        }}
+
+        onClick={()=>{
+          document
+          .getElementById("explore")
+          ?.scrollIntoView({
+            behavior:"smooth"
+          });
+        }}
+
         className="
           group
-          flex items-center gap-2
-          rounded-2xl
+          flex
+          items-center
+          gap-3
+          rounded-xl
           border
-          border-white/10
-          bg-white/5
-          px-8 py-4
+          border-white/15
+          bg-white/[0.05]
+          px-8
+          py-4
           font-semibold
           text-white
           backdrop-blur-xl
           transition-all
-          duration-300
-          hover:border-indigo-500/40
+          hover:border-white/40
           hover:bg-white/10
-          hover:scale-105
         "
       >
+
         <Compass
           size={18}
-          className="transition-transform duration-300 group-hover:rotate-12"
+          className="
+            transition-transform
+            duration-300
+            group-hover:rotate-12
+          "
         />
+
         Explore
-      </button>
+
+      </motion.button>
+
+
     </motion.div>
   );
 };
+
 
 export default HeroButtons;

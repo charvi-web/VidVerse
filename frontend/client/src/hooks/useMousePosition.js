@@ -14,16 +14,11 @@ const useMousePosition = () => {
       });
     };
 
-    window.addEventListener(
-      "mousemove",
-      handleMove
-    );
+    window.addEventListener("mousemove", handleMove);
 
-    return () =>
-      window.removeEventListener(
-        "mousemove",
-        handleMove
-      );
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+    };
   }, []);
 
   return position;

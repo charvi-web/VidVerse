@@ -1,43 +1,82 @@
 import { motion } from "motion/react";
+import { fadeIn } from "../../utils/motion";
 
 const HeroContent = () => {
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-6"
+
+      <motion.span
+        variants={fadeIn("down",0)}
+        className="
+          mb-8
+          rounded-full
+          border
+          border-white/10
+          bg-white/5
+          px-5
+          py-2
+          text-sm
+          text-zinc-300
+          backdrop-blur-xl
+        "
       >
-        <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-5 py-2 text-sm font-medium text-indigo-300 backdrop-blur-xl">
-          🚀 The Future of Video Streaming
-        </span>
-      </motion.div>
+        ✨ Next Generation Video Experience
+      </motion.span>
+
+
 
       <motion.h1
-        initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.8 }}
-        className="max-w-6xl text-5xl font-black leading-tight sm:text-6xl md:text-7xl lg:text-8xl"
+        variants={fadeIn("up",0.15)}
+        className="
+          max-w-5xl
+          text-5xl
+          font-black
+          leading-[1.05]
+          tracking-tight
+          sm:text-6xl
+          md:text-7xl
+          lg:text-[84px]
+        "
       >
-        Where Every Video
-        <br />
-        Finds Its{" "}
-        <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-          Universe
+
+        Stream Stories.
+        <br/>
+
+        Create Your{" "}
+
+        <span
+          className="
+            bg-gradient-to-r
+            from-violet-400
+            via-purple-400
+            to-cyan-400
+            bg-clip-text
+            text-transparent
+          "
+        >
+          Digital Universe
         </span>
+
       </motion.h1>
 
+
+
       <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.45 }}
-        className="mx-auto mt-8 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg md:text-xl"
+        variants={fadeIn("up",0.3)}
+        className="
+          mx-auto
+          mt-7
+          max-w-2xl
+          text-lg
+          leading-8
+          text-zinc-400
+        "
       >
-        Discover creators, explore trending content, stream instantly,
-        and experience a premium video platform powered by modern web
-        technologies.
+        Discover creators, watch trending videos,
+        and experience a modern streaming platform
+        built for the next generation.
       </motion.p>
+
     </>
   );
 };

@@ -12,9 +12,12 @@ import Playlist from "../pages/Playlist";
 import History from "../pages/History";
 import NotFound from "../pages/NotFound";
 
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+
 const AppRoutes = () => {
   return (
     <Routes>
+      {/* Public Routes */}
 
       <Route
         path="/"
@@ -29,18 +32,67 @@ const AppRoutes = () => {
 
       <Route path="/register" element={<Register />} />
 
-      <Route path="/watch/:videoId" element={<Watch />} />
+      <Route
+        path="/watch/:videoId"
+        element={
+          <MainLayout>
+            <Watch />
+          </MainLayout>
+        }
+      />
 
-      <Route path="/upload" element={<Upload />} />
+      
+      
 
-      <Route path="/profile/:username" element={<Profile />} />
+      {/* Protected Routes */}
 
-      <Route path="/playlist/:id" element={<Playlist />} />
+      <Route
+        path="/upload"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Upload />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/history" element={<History />} />
+      <Route
+        path="/profile/:username"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Profile />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/playlist/:id"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <Playlist />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/history"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <History />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* 404 */}
 
       <Route path="*" element={<NotFound />} />
-
     </Routes>
   );
 };

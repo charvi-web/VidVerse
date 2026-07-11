@@ -1,6 +1,10 @@
 import Logo from "./Logo";
 import Container from "../ui/Container";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import {
+  FaGithub,
+  FaTwitter,
+  FaLinkedin,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -17,28 +21,29 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center gap-4">
+
             <a
               href="#"
               className="rounded-xl bg-white/5 p-3 transition hover:bg-indigo-600"
             >
-              <Github size={18} />
+              <FaGithub size={18} />
             </a>
 
             <a
               href="#"
               className="rounded-xl bg-white/5 p-3 transition hover:bg-sky-500"
             >
-              <Twitter size={18} />
+              <FaTwitter size={18} />
             </a>
 
             <a
               href="#"
               className="rounded-xl bg-white/5 p-3 transition hover:bg-blue-600"
             >
-              <Linkedin size={18} />
+              <FaLinkedin size={18} />
             </a>
-          </div>
 
+          </div>
         </div>
       </Container>
     </footer>

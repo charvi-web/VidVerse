@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 import HeroContent from "./HeroContent";
 import HeroStats from "./HeroStats";
 import HeroButtons from "./HeroButtons";
@@ -8,37 +10,101 @@ import AuroraBackground from "../common/AuroraBackground";
 import FloatingParticles from "../common/FloatingParticles";
 import MouseGlow from "../common/MouseGlow";
 
+
 const Hero = () => {
   return (
     <section
-      aria-label="Hero Section"
-      className="relative min-h-screen overflow-hidden bg-[#09090B]"
+      className="
+        relative
+        min-h-screen
+        overflow-hidden
+        bg-[#050505]
+      "
     >
-      {/* Mouse Glow */}
+
+      {/* Mouse glow */}
       <MouseGlow />
 
-      {/* Aurora Background */}
-      <AuroraBackground />
 
-      {/* Floating Particles */}
-      <FloatingParticles />
+      {/* Background */}
+      <div
+        className="
+          absolute
+          inset-0
+          overflow-hidden
+        "
+      >
 
-      {/* Floating Orbs */}
-      <FloatingOrbs />
+        <AuroraBackground />
 
-      {/* Hero Content */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 text-center">
+        <FloatingParticles />
+
+        <FloatingOrbs />
+
+
+        <div
+          className="
+            absolute
+            inset-0
+            bg-black/20
+          "
+        />
+
+      </div>
+
+
+
+      {/* Main Content */}
+
+      <motion.div
+
+        initial="hidden"
+
+        animate="show"
+
+        variants={{
+          hidden:{},
+
+          show:{
+            transition:{
+              staggerChildren:0.2
+            }
+          }
+        }}
+
+        className="
+          relative
+          z-20
+          mx-auto
+          flex
+          min-h-screen
+          max-w-6xl
+          flex-col
+          items-center
+          justify-center
+          gap-8
+          px-6
+          pt-20
+          text-center
+        "
+      >
+
         <HeroContent />
 
         <HeroButtons />
 
         <HeroStats />
-      </div>
 
-      {/* Scroll Indicator */}
+      </motion.div>
+
+
+
       <ScrollIndicator />
+
+
     </section>
   );
 };
+
 
 export default Hero;

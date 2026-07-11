@@ -1,12 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 import Logo from "./Logo";
 import DesktopNav from "./DesktopNav";
 import MobileMenu from "./MobileMenu";
+import UserMenu from "./UserMenu";
 import GlowButton from "../ui/GlowButton";
 import Container from "../ui/Container";
 import useScrolled from "../../hooks/useScrolled";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const scrolled = useScrolled();
+  const { isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header
@@ -33,9 +39,14 @@ const Navbar = () => {
           <DesktopNav />
 
           <div className="hidden lg:block">
-            <GlowButton>
-              Get Started
-            </GlowButton>
+            {!loading &&
+              (isAuthenticated ? (
+                <UserMenu />
+              ) : (
+                <GlowButton onClick={() => navigate("/login")}>
+                  Get Started
+                </GlowButton>
+              ))}
           </div>
 
           <MobileMenu />

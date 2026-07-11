@@ -4,7 +4,7 @@ import { navigation } from "../../constants/navigation";
 
 const DesktopNav = () => {
   return (
-    <nav className="hidden items-center gap-8 lg:flex">
+    <nav className="hidden items-center gap-3 lg:flex">
       {navigation.map((item) => (
         <NavLink
           key={item.href}
@@ -13,6 +13,8 @@ const DesktopNav = () => {
             `
             group
             relative
+            rounded-xl
+            px-4
             py-2
             text-sm
             font-medium
@@ -28,42 +30,51 @@ const DesktopNav = () => {
         >
           {({ isActive }) => (
             <>
-              {item.title}
+              {isActive && (
+                <motion.div
+                  layoutId="active-pill"
+                  className="
+                    absolute
+                    inset-0
+                    rounded-xl
+                    bg-white/10
+                    backdrop-blur-md
+                  "
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30,
+                  }}
+                />
+              )}
+
+              <span className="relative z-10">
+                {item.title}
+              </span>
 
               <motion.span
                 layoutId="navbar-indicator"
-                className={`
+                className="
                   absolute
                   -bottom-1
-                  left-0
+                  left-1/2
                   h-[2px]
+                  w-0
+                  -translate-x-1/2
                   rounded-full
                   bg-gradient-to-r
                   from-indigo-500
                   via-purple-500
                   to-cyan-400
-                  ${
-                    isActive
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
-                  }
-                `}
+                  group-hover:w-3/4
+                "
+                animate={{
+                  width: isActive ? "100%" : "0%",
+                }}
                 transition={{
                   duration: 0.3,
                 }}
               />
-
-              {isActive && (
-                <motion.div
-                  layoutId="active-pill"
-                  className="absolute inset-0 -z-10 rounded-xl bg-white/5"
-                  transition={{
-                    type: "spring",
-                    stiffness: 350,
-                    damping: 30,
-                  }}
-                />
-              )}
             </>
           )}
         </NavLink>
