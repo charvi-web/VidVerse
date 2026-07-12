@@ -165,11 +165,9 @@ const getVideoById = asyncHandler(
         {
             throw new ApiError(400, "Invalid videoId");
         }
-
-        if (!isValidObjectId(req.user?._id))
-        {
-            throw new ApiError(400, "Invalid userId");
-        }
+        const viewerId = req.user?._id
+            ? new mongoose.Types.ObjectId(req.user._id)
+            : null;
 
         const video = await Video.aggregate(
             [
@@ -210,7 +208,7 @@ const getVideoById = asyncHandler(
                                     $cond:{
                                         if:{
                                             $in:[
-                                                req.user?._id
+                                                viewerId
 ,"$subscribers.subscriber"                                            ]
                                         },
                                         then:true,
@@ -240,7 +238,7 @@ const getVideoById = asyncHandler(
                 },
                 isLiked: {
                     $cond: {
-                        if: {$in: [req.user?._id, "$likes.likedBy"]},
+                        if: {$in: [viewerId, "$likes.likedBy"]},
                         then: true,
                         else: false
                     }
@@ -278,13 +276,15 @@ const getVideoById = asyncHandler(
         )
 
         //add this video to user watch history
-        await User.findByIdAndUpdate(
-            req.user?._id,{
-                $addToSet:{
-                    watchHistory:videoId
+        if (viewerId) {
+            await User.findByIdAndUpdate(
+                viewerId,{
+                    $addToSet:{
+                        watchHistory:videoId
+                    }
                 }
-            }
-        )
+            )
+        }
 
         return res.status(200).json(
             new ApiResponse(200,video[0],"video details fetched successfully")

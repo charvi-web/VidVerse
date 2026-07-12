@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { videoUpload } from "../middlewares/multer.middleware.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { optionalJWT, verifyJWT } from "../middlewares/auth.middleware.js";
 import {
     deleteVideo,
     getAllVideos,
@@ -32,7 +32,7 @@ router
 
 router
     .route("/v/:videoId")
-    .get(verifyJWT, getVideoById) // <-- verifyJWT hata sakte ho
+    .get(optionalJWT, getVideoById)
     .patch(
         verifyJWT,
         videoUpload.single("thumbnail"),
