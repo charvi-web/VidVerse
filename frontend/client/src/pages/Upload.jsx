@@ -6,7 +6,9 @@ import { UploadCloud, Film, Image as ImageIcon, X, Loader2 } from "lucide-react"
 import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
 
-import { publishVideo, togglePublish } from "../services/videoService";
+import { publishVideo } from "../services/videoService";
+
+const MAX_VIDEO_SIZE_MB = Number(import.meta.env.VITE_MAX_VIDEO_UPLOAD_SIZE_MB) || 500;
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -57,10 +59,13 @@ const Upload = () => {
       formData.append("videoFile", videoFile);
       formData.append("thumbnail", thumbnailFile);
 
-      const res = await publishVideo(formData);
+      const res = await publishVideo(formData, (event) => {
+        if (!event.total) return;
+        const percent = Math.round((event.loaded * 100) / event.total);
+        setProgressLabel(`Uploading your video... ${percent}%`);
+      });
 
       setProgressLabel("Publishing...");
-      await togglePublish(res.data._id);
 
       toast.success("Video uploaded successfully!");
       navigate(`/watch/${res.data._id}`);
@@ -112,7 +117,7 @@ const Upload = () => {
                   <UploadCloud size={32} />
                   <span className="text-sm">Click to select a video</span>
                   <span className="text-xs text-zinc-600">
-                    MP4, WebM, MOV up to your server's limit
+                    MP4, WebM, MOV up to {MAX_VIDEO_SIZE_MB} MB
                   </span>
                 </>
               )}
@@ -123,7 +128,16 @@ const Upload = () => {
               type="file"
               accept="video/*"
               className="hidden"
-              onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                if (file && file.size > MAX_VIDEO_SIZE_MB * 1024 * 1024) {
+                  toast.error(`Video must be ${MAX_VIDEO_SIZE_MB} MB or smaller`);
+                  e.target.value = "";
+                  setVideoFile(null);
+                  return;
+                }
+                setVideoFile(file);
+              }}
             />
           </div>
 

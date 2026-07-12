@@ -3,11 +3,12 @@ import API from "../api/axios";
 // =========================
 // Publish Video
 // =========================
-export const publishVideo = async (formData) => {
+export const publishVideo = async (formData, onUploadProgress) => {
   const { data } = await API.post("/videos", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    onUploadProgress,
   });
 
   return data;

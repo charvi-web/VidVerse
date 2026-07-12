@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-const GlowButton = ({ children }) => {
+const GlowButton = ({ children, className = "", ...props }) => {
   return (
     <motion.button
       whileHover={{
@@ -10,7 +10,7 @@ const GlowButton = ({ children }) => {
       whileTap={{
         scale: .97,
       }}
-      className="
+      className={`
       relative
       overflow-hidden
       rounded-full
@@ -23,7 +23,9 @@ const GlowButton = ({ children }) => {
       font-medium
       text-white
       shadow-purple
-      "
+      ${className}
+      `}
+      {...props}
     >
       {children}
     </motion.button>

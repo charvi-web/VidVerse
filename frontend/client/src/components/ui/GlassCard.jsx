@@ -1,9 +1,13 @@
 import { motion } from "motion/react";
+import { useTheme } from "../../context/ThemeContext";
 
 const GlassCard = ({
   children,
   className = "",
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <motion.div
       whileHover={{
@@ -14,20 +18,22 @@ const GlassCard = ({
         type: "spring",
         stiffness: 220,
       }}
-      className={`
-        rounded-3xl
-        border
-        border-white/10
-        bg-white/5
-        p-8
-        backdrop-blur-xl
-        transition-all
-        duration-300
-        hover:border-indigo-500/30
-        hover:shadow-2xl
-        hover:shadow-indigo-500/10
-        ${className}
-      `}
+      className={`rounded-3xl p-8 transition-all duration-300 ${className}`}
+      style={{
+        background: isDark
+          ? "rgba(255,255,255,.05)"
+          : "rgba(255,255,255,.88)",
+
+        backdropFilter: "blur(22px)",
+
+        border: isDark
+          ? "1px solid rgba(255,255,255,.10)"
+          : "1px solid rgba(0,0,0,.08)",
+
+        boxShadow: isDark
+          ? "0 10px 35px rgba(0,0,0,.35)"
+          : "0 12px 35px rgba(99,102,241,.08)",
+      }}
     >
       {children}
     </motion.div>

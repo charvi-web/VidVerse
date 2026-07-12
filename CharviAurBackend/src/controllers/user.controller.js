@@ -17,11 +17,14 @@ const generateAccessAndRefreshToken = async (userId)=>{
         const refreshToken = user.generateRefreshToken()
         user.refreshToken = refreshToken
         //validateBeforeSave false isliye ki agar user ke paas koi required field nhi hai toh bhi refresh token save ho jaye bina error throw kiye
-        await user.save()
+        await user.save({ validateBeforeSave: false })
         return {accessToken,refreshToken}
     }
     catch(error)
     {
+        if (error instanceof ApiError) {
+            throw error;
+        }
         throw new ApiError(500,"Error while generating access and refresh token")
     }
 }
@@ -51,9 +54,12 @@ const registerUser = asyncHandler(async (req, res)=>{
     throw new ApiError(400, "All fields are required");
 }
     
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedUsername = username.toLowerCase().trim();
+
     const existedUser = await User.findOne({
             //$or checks on all objects passed in array and if any one of them is true then it returns true
-            $or:[{username},{email}]})
+            $or:[{username: normalizedUsername},{email: normalizedEmail}]})
 
             if (existedUser)
             {
@@ -96,9 +102,9 @@ const coverImage = coverImageLocalPath
               public_id: null,
           },
 
-    email,
+    email: normalizedEmail,
     password,
-    username: username.toLowerCase(),
+    username: normalizedUsername,
 });
 
             const createdUser = await User.findById(user._id).select("-password -refreshToken")
@@ -133,8 +139,8 @@ const loginUser = asyncHandler(async(req,res)=>{
     //pehla jo record milega usko le lega chahe email se mile ya username se mile, dono check karne ke liye $or operator use karna padega
     const user = await User.findOne({
     $or: [
-        { username: username?.toLowerCase() },
-        { email: email?.toLowerCase() }
+        { username: username?.trim().toLowerCase() },
+        { email: email?.trim().toLowerCase() }
     ]
 });
     if (!user)
@@ -487,6 +493,64 @@ const getWatchHistory = asyncHandler(
     }
 )
 
+const getCreators = asyncHandler(async (req, res) => {
+    const requestedLimit = Number.parseInt(req.query.limit, 10);
+    const limit = Math.min(Math.max(requestedLimit || 24, 1), 100);
+
+    const creators = await User.aggregate([
+        {
+            $lookup: {
+                from: "subscriptions",
+                localField: "_id",
+                foreignField: "channel",
+                as: "subscribers",
+            },
+        },
+        {
+            $lookup: {
+                from: "videos",
+                let: { creatorId: "$_id" },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $and: [
+                                    { $eq: ["$owner", "$$creatorId"] },
+                                    { $eq: ["$isPublished", true] },
+                                ],
+                            },
+                        },
+                    },
+                ],
+                as: "publishedVideos",
+            },
+        },
+        {
+            $addFields: {
+                subscribersCount: { $size: "$subscribers" },
+                videosCount: { $size: "$publishedVideos" },
+            },
+        },
+        { $match: { videosCount: { $gt: 0 } } },
+        { $sort: { subscribersCount: -1, videosCount: -1, createdAt: -1 } },
+        { $limit: limit },
+        {
+            $project: {
+                fullName: 1,
+                username: 1,
+                avatar: 1,
+                coverImage: 1,
+                subscribersCount: 1,
+                videosCount: 1,
+            },
+        },
+    ]);
+
+    return res.status(200).json(
+        new ApiResponse(200, creators, "Creators fetched successfully")
+    );
+});
+
 
 export {registerUser,
 loginUser,
@@ -495,4 +559,4 @@ loginUser,
    changeCurrentPassword,    getCurrentUser,
     updateAccountDetails,
 updateUserAvatar,updateUserCoverImage,
-getUserChannelProfile,getWatchHistory}
+getUserChannelProfile,getWatchHistory,getCreators}

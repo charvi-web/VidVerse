@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { upload } from "../middlewares/multer.middleware.js";
+import { videoUpload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
     deleteVideo,
@@ -17,7 +17,7 @@ router
     .get(getAllVideos)
     .post(
         verifyJWT,
-        upload.fields([
+        videoUpload.fields([
             {
                 name: "videoFile",
                 maxCount: 1,
@@ -35,7 +35,7 @@ router
     .get(verifyJWT, getVideoById) // <-- verifyJWT hata sakte ho
     .patch(
         verifyJWT,
-        upload.single("thumbnail"),
+        videoUpload.single("thumbnail"),
         updateVideo
     )
     .delete(verifyJWT, deleteVideo);

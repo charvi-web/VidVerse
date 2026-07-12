@@ -118,8 +118,8 @@ const publishAVideo = asyncHandler(
         {
             throw new ApiError(400,"thumbnailPath is required")
         }
-        const videoFile = await uploadOnCloudinary(videoFileLocalPath)
-        const thumbnail = await uploadOnCloudinary(thumbnailLocalPath)
+        const videoFile = await uploadOnCloudinary(videoFileLocalPath, { resourceType: "video" })
+        const thumbnail = await uploadOnCloudinary(thumbnailLocalPath, { resourceType: "image" })
 
         if (!videoFile)
         {
@@ -144,7 +144,7 @@ const publishAVideo = asyncHandler(
                     public_id : thumbnail.public_id
                 },
                 owner:req.user?._id,
-                isPublished:false
+                isPublished:true
             }
         )
         const videoUploaded = await Video.findById(video._id)
@@ -331,7 +331,7 @@ const updateVideo = asyncHandler(
         throw new ApiError(400, "thumbnail is required");
     }
 
-    const thumbnail = await uploadOnCloudinary(thumbnailLocalPath);
+    const thumbnail = await uploadOnCloudinary(thumbnailLocalPath, { resourceType: "image" });
 
     if (!thumbnail) {
         throw new ApiError(400, "thumbnail not found");

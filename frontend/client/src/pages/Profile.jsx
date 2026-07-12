@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
-import { Loader2, Users, Video as VideoIcon, ListVideo, BadgeCheck } from "lucide-react";
+import { Loader2, Users, Video as VideoIcon, ListVideo, BadgeCheck, MessageSquare } from "lucide-react";
 
 import Container from "../components/ui/Container";
 import Button from "../components/ui/Button";
@@ -16,21 +16,26 @@ import { getAllVideos } from "../services/videoService";
 import { getUserPlaylists } from "../services/playlistService";
 import { toggleSubscription } from "../services/subscriptionService";
 import { formatCount } from "../lib/utils";
+import TweetPanel from "../components/profile/TweetPanel";
 
 const TABS = [
   { key: "videos", label: "Videos", icon: VideoIcon },
   { key: "playlists", label: "Playlists", icon: ListVideo },
+  { key: "tweets", label: "Updates", icon: MessageSquare },
 ];
 
 const Profile = () => {
   const { username } = useParams();
+  const [searchParams] = useSearchParams();
   const { user: currentUser } = useAuth();
 
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [subscribing, setSubscribing] = useState(false);
 
-  const [tab, setTab] = useState("videos");
+  const [tab, setTab] = useState(
+    searchParams.get("tab") === "tweets" ? "tweets" : "videos"
+  );
   const [videos, setVideos] = useState([]);
   const [videosLoading, setVideosLoading] = useState(true);
   const [playlists, setPlaylists] = useState([]);
@@ -134,18 +139,22 @@ const Profile = () => {
   return (
     <div>
       {/* Cover */}
-      <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-indigo-900/40 via-purple-900/30 to-black sm:h-64 lg:h-80">
-        {channel.coverImage?.url && (
+      <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-700 to-fuchsia-800 sm:h-64 lg:h-80">
+        {channel.coverImage?.url ? (
           <img
             src={channel.coverImage.url}
             alt="cover"
             className="h-full w-full object-cover"
           />
+        ) : (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.26),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(34,211,238,0.34),transparent_28%)]" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/20 to-transparent" />
+        {channel.coverImage?.url && (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+        )}
       </div>
 
-      <Container>
+      <Container className="relative z-10">
         {/* Header */}
         <div className="-mt-16 flex flex-col items-start gap-6 sm:-mt-20 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-end">
@@ -281,6 +290,8 @@ const Profile = () => {
                 ))}
               </div>
             ))}
+
+          {tab === "tweets" && <TweetPanel channel={channel} currentUser={currentUser} isOwnProfile={isOwnProfile} />}
         </div>
       </Container>
     </div>

@@ -6,12 +6,23 @@ import morgan from "morgan";
 const app = express();
 
 const allowedOrigins = [
+  ...String(process.env.CORS_ORIGIN || "")
+    .split(",")
+    .map((origin) => origin.trim()),
   "http://localhost:5173",
-];
+  "http://localhost:5174",
+].filter(Boolean);
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin(origin, callback) {
+      // Allow server-to-server requests as well as the local Vite dev servers.
+      if (!origin || allowedOrigins.includes("*") || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Origin not allowed by CORS"));
+    },
     credentials: true,
   })
 );
@@ -46,6 +57,31 @@ app.use("/api/v1/videos", videoRouter);
 app.use("/api/v1/healthcheck", healthcheckRouter);
 app.use("/api/v1/playlist", playlistRouter);
 app.use("/api/v1/dashboard", dashboardRouter);
+
+// Keep API failures in the same JSON shape as successful responses. Without
+// this handler Express returns an HTML error page, which makes frontend error
+// messages look like an unexplained network failure.
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || err.status || 500;
+
+  if (err.name === "MulterError") {
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+      errors: [],
+    });
+  }
+
+  if (process.env.NODE_ENV !== "test" && statusCode >= 500) {
+    console.error(err);
+  }
+
+  return res.status(statusCode).json({
+    success: false,
+    message: err.message || "Internal server error",
+    errors: err.errors || [],
+  });
+});
 
 
 export { app };

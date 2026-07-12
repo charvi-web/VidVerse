@@ -35,10 +35,32 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response) => response,
 
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("accessToken");
+  async (error) => {
+    const originalRequest = error.config;
+    const isRefreshRequest = originalRequest?.url?.includes("/users/refresh-token");
+
+    if (error.response?.status === 401 && !originalRequest?._retry && !isRefreshRequest) {
+      originalRequest._retry = true;
+
+      try {
+        const { data } = await axios.post(
+          `${API.defaults.baseURL}/users/refresh-token`,
+          {},
+          { withCredentials: true }
+        );
+        const accessToken = data?.data?.accessToken;
+
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          return API(originalRequest);
+        }
+      } catch {
+        // The final handler below clears an expired session.
+      }
     }
+
+    if (error.response?.status === 401) localStorage.removeItem("accessToken");
 
     // Don't log cancelled requests
     if (!axios.isCancel(error)) {

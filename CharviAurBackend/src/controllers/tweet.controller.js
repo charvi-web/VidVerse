@@ -15,8 +15,13 @@ const createTweet = asyncHandler(async (req, res) => {
         throw new ApiError(400, "content is required");
     }
 
+    const trimmedContent = content.trim();
+    if (trimmedContent.length > 280) {
+        throw new ApiError(400, "Tweet cannot exceed 280 characters");
+    }
+
     const tweet = await Tweet.create({
-        content,
+        content: trimmedContent,
         owner: req.user?._id,
     });
 
@@ -38,6 +43,10 @@ const updateTweet = asyncHandler(async (req, res) => {
 
     if (!content?.trim()) {
         throw new ApiError(400, "content is required");
+    }
+
+    if (content.trim().length > 280) {
+        throw new ApiError(400, "Tweet cannot exceed 280 characters");
     }
 
     if (!isValidObjectId(tweetId)) {

@@ -1,52 +1,67 @@
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import fs from "fs/promises";
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadOnCloudinary = async (localFilePath) => {
-    try {
-        if (!localFilePath) return null;
+const safeDelete = async (filePath) => {
+  if (!filePath) return;
 
-        const response = await cloudinary.uploader.upload(localFilePath, {
-            resource_type: "auto",
-        });
-
-        if (fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath);
-        }
-
-        return response;
-    } catch (error) {
-        console.error("Cloudinary Upload Error:", error.message);
-
-        if (localFilePath && fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath);
-        }
-
-        return null;
-    }
+  try {
+    await fs.unlink(filePath);
+  } catch (err) {
+    console.warn("Temp file could not be deleted:", err.message);
+    // Ignore deletion errors
+  }
 };
 
-const deleteOnCloudinary = async (publicId, resourceType = "image") => {
-    try {
-        if (!publicId) return null;
+const uploadOnCloudinary = async (
+  localFilePath,
+  { resourceType = "auto" } = {}
+) => {
+  if (!localFilePath) return null;
 
-        const response = await cloudinary.uploader.destroy(publicId, {
-            resource_type: resourceType,
-        });
+  try {
+    const uploadOptions = {
+      resource_type: resourceType,
+    };
 
-        return response;
-    } catch (error) {
-        console.error("Cloudinary Delete Error:", error.message);
-        return null;
-    }
+    const response = await cloudinary.uploader.upload(
+      localFilePath,
+      uploadOptions
+    );
+
+    // Delete temp file after successful upload
+    await safeDelete(localFilePath);
+
+    return response;
+  } catch (error) {
+    console.error("Cloudinary Upload Error:", error);
+
+    await safeDelete(localFilePath);
+
+    return null;
+  }
+};
+
+const deleteOnCloudinary = async (
+  publicId,
+  resourceType = "image"
+) => {
+  try {
+    return await cloudinary.uploader.destroy(publicId, {
+      resource_type: resourceType,
+    });
+  } catch (error) {
+    console.error("Cloudinary Delete Error:", error);
+    return null;
+  }
 };
 
 export {
-    uploadOnCloudinary,
-    deleteOnCloudinary,
+  uploadOnCloudinary,
+  deleteOnCloudinary,
 };

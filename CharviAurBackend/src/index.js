@@ -1,11 +1,6 @@
-import dotenv from "dotenv"
-import mongoose from "mongoose";
-import {DB_NAME} from "./constants.js"
+import "dotenv/config";
 import connectDB from "./db/index.js"
 import {app} from "./app.js"
-dotenv.config({
-    path:'./.env'
-})
 
 connectDB()  //async function returns a promise, so we can use .then and .catch to handle the connection result
 .then(

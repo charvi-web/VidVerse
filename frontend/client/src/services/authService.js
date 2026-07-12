@@ -121,6 +121,11 @@ export const getWatchHistory = async () => {
   return data;
 };
 
+export const getCreators = async (params = {}) => {
+  const { data } = await API.get("/users/creators", { params });
+  return data;
+};
+
 // ==============================
 // Delete Account
 // ==============================
@@ -144,6 +149,7 @@ const authService = {
   updateCoverImage,
   getChannelProfile,
   getWatchHistory,
+  getCreators,
   deleteAccount,
 };
 

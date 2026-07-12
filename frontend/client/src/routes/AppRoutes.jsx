@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import Playlist from "../pages/Playlist";
 import History from "../pages/History";
 import NotFound from "../pages/NotFound";
+import Explore from "../pages/Explore";
 
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 
@@ -31,6 +32,10 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
 
       <Route path="/register" element={<Register />} />
+
+      <Route path="/explore" element={<MainLayout><Explore /></MainLayout>} />
+      <Route path="/trending" element={<MainLayout><Explore mode="trending" /></MainLayout>} />
+      <Route path="/creators" element={<MainLayout><Explore mode="creators" /></MainLayout>} />
 
       <Route
         path="/watch/:videoId"

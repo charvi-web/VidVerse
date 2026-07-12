@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X, Upload, History, LogOut, User } from "lucide-react";
+import { Menu, X, Upload, History, LogOut, User, MessageSquare } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { navigation } from "../../constants/navigation";
 import useAuth from "../../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
@@ -127,6 +128,10 @@ const MobileMenu = () => {
 
               {/* Links */}
               <nav className="flex flex-col gap-2">
+                <div className="mb-2 flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-300">
+                  Theme
+                  <ThemeToggle />
+                </div>
                 {navigation.map((item) => (
                   <NavLink
                     key={item.href}
@@ -171,6 +176,15 @@ const MobileMenu = () => {
                     >
                       <History size={18} />
                       Watch History
+                    </Link>
+
+                    <Link
+                      to={`/profile/${user.username}?tab=tweets`}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-zinc-300 hover:bg-white/5 hover:text-white"
+                    >
+                      <MessageSquare size={18} />
+                      Your Updates
                     </Link>
                   </>
                 )}
