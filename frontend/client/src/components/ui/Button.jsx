@@ -15,7 +15,7 @@ const sizes = {
 
 const Button = ({
   children,
-  type = "button",
+  type = "submit",
   variant = "primary",
   size = "md",
   icon: Icon,
@@ -25,7 +25,7 @@ const Button = ({
   ...props
 }) => (
   <button
-    type={type}
+    type="submit"
     disabled={disabled || loading}
     className={`inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090B] disabled:pointer-events-none disabled:opacity-60 ${styles[variant] || styles.primary} ${sizes[size] || sizes.md} ${className}`}
     {...props}

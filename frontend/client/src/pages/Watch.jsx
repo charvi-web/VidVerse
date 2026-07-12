@@ -171,34 +171,46 @@ const Watch = () => {
   };
 
   const handlePostComment = async (e) => {
-    e.preventDefault();
-    if (!isAuthenticated) {
-      toast.error("Please login to comment");
-      return;
-    }
-    if (!commentText.trim()) return;
+  e.preventDefault();
 
-    try {
-      setPostingComment(true);
-      const res = await addComment(videoId, commentText.trim());
-      setComments((prev) => [
-        {
-          ...res.data,
-          owner: {
-            username: user?.username,
-            fullName: user?.fullName,
-            avatar: user?.avatar,
-          },
+  if (!isAuthenticated) {
+    toast.error("Please login to comment");
+    return;
+  }
+
+  if (!commentText.trim()) {
+    toast.error("Please enter a comment");
+    return;
+  }
+
+  try {
+    setPostingComment(true);
+
+    const res = await addComment(videoId, commentText.trim());
+
+    const newComment = res.data?.data || res.data;
+
+    setComments((prev) => [
+      {
+        ...newComment,
+        owner: {
+          username: user?.username,
+          fullName: user?.fullName,
+          avatar: user?.avatar,
         },
-        ...prev,
-      ]);
-      setCommentText("");
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to post comment");
-    } finally {
-      setPostingComment(false);
-    }
-  };
+      },
+      ...prev,
+    ]);
+
+    setCommentText("");
+    toast.success("Comment added successfully");
+  } catch (error) {
+    console.error(error);
+    toast.error(error?.response?.data?.message || "Failed to post comment");
+  } finally {
+    setPostingComment(false);
+  }
+};
 
   const handleDeleteComment = async (commentId) => {
     try {
