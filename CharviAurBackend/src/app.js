@@ -6,12 +6,14 @@ import morgan from "morgan";
 const app = express();
 
 const allowedOrigins = [
-  ...String(process.env.CORS_ORIGIN || "")
-    .split(",")
-    .map((origin) => origin.trim()),
   "http://localhost:5173",
   "http://localhost:5174",
-].filter(Boolean);
+  "https://vid-verse-66xp.vercel.app",
+  ...String(process.env.CORS_ORIGIN || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
+];
 
 app.use(
   cors({
