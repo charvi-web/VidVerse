@@ -3,39 +3,46 @@
 <div align="center">
 
 # 🎥 VidVerse
+
 ### Modern Full Stack Video Sharing Platform
 
-A YouTube-inspired video sharing platform built using the **MERN Stack**, featuring secure authentication, video uploads, playlists, subscriptions, community posts, and responsive UI.
+A YouTube-inspired video sharing platform built using the **MERN Stack**, featuring secure authentication, video uploads, playlists, subscriptions, community posts, and a fully responsive UI.
 
 <br>
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit-success?style=for-the-badge)](https://vid-verse-66xp.vercel.app)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/YOUR_GITHUB_USERNAME/VidVerse)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME)
 
 <br>
 
-![GitHub stars](https://img.shields.io/github/stars/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
-![GitHub license](https://img.shields.io/github/license/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
+<p align="center">
+
+<img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
+<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white"/>
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"/>
+<img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white"/>
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"/>
+
+</p>
 
 </div>
 
 ---
 
-# 🌟 Live Demo
+# 🌐 Live Demo
 
-## 🚀 https://vid-verse-66xp.vercel.app
+### 🚀 https://vid-verse-66xp.vercel.app
 
 ---
 
 # 📖 About
 
-VidVerse is a **modern MERN Stack video-sharing platform** inspired by YouTube with integrated social networking features.
+VidVerse is a feature-rich **full-stack video sharing platform** inspired by YouTube, developed using the **MERN Stack**. It allows users to upload and stream videos, interact through likes and comments, subscribe to creators, create playlists, publish community posts, and manage personalized profiles.
 
-Users can securely upload videos, create playlists, subscribe to creators, interact through likes and comments, publish community posts, and manage personalized profiles.
-
-The application follows industry-standard backend architecture with JWT Authentication, Cloudinary media storage, MongoDB database, and a responsive React frontend.
+The application is built with scalability, security, and performance in mind, utilizing **JWT authentication**, **Cloudinary media storage**, **MongoDB Atlas**, and a responsive React frontend.
 
 ---
 
