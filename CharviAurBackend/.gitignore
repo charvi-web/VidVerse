@@ -117,4 +117,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+
+public/temp/
+*.mp4
+*.zip
+.env
+node_modules/
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
