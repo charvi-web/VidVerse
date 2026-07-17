@@ -1,153 +1,66 @@
-
 # 🎬 VidVerse
 
 <div align="center">
 
-![GitHub stars](https://img.shields.io/github/stars/your-username/VidVerse?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/your-username/VidVerse?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/your-username/VidVerse?style=for-the-badge)
-![GitHub license](https://img.shields.io/github/license/your-username/VidVerse?style=for-the-badge)
+# 🎥 VidVerse
+### Modern Full Stack Video Sharing Platform
 
-### A Modern Full-Stack Video Sharing Platform
+A YouTube-inspired video sharing platform built using the **MERN Stack**, featuring secure authentication, video uploads, playlists, subscriptions, community posts, and responsive UI.
 
-**Built with React, Node.js, Express, MongoDB, Cloudinary & JWT Authentication**
+<br>
 
-[Live Demo](https://your-demo-link.com) •
-[Backend API](https://your-api-link.com) •
-[Report Bug](https://github.com/your-username/VidVerse/issues) •
-[Request Feature](https://github.com/your-username/VidVerse/issues)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit-success?style=for-the-badge)](https://vid-verse-66xp.vercel.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/YOUR_GITHUB_USERNAME/VidVerse)
+
+<br>
+
+![GitHub stars](https://img.shields.io/github/stars/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
+![GitHub license](https://img.shields.io/github/license/YOUR_GITHUB_USERNAME/VidVerse?style=for-the-badge)
 
 </div>
 
 ---
 
-# 📖 Overview
+# 🌟 Live Demo
 
-VidVerse is a modern full-stack video sharing platform inspired by YouTube with integrated social media features. It enables users to upload and stream videos, interact through likes and comments, subscribe to creators, organize playlists, publish community posts, and personalize their profiles.
+## 🚀 https://vid-verse-66xp.vercel.app
 
-Built with scalability, security, and performance in mind, VidVerse follows industry-standard backend architecture, secure JWT authentication, cloud-based media storage, and responsive frontend design.
+---
+
+# 📖 About
+
+VidVerse is a **modern MERN Stack video-sharing platform** inspired by YouTube with integrated social networking features.
+
+Users can securely upload videos, create playlists, subscribe to creators, interact through likes and comments, publish community posts, and manage personalized profiles.
+
+The application follows industry-standard backend architecture with JWT Authentication, Cloudinary media storage, MongoDB database, and a responsive React frontend.
 
 ---
 
 # ✨ Features
 
-## 👤 Authentication
-
-- User Registration
-- Secure Login
-- JWT Authentication
-- Refresh Tokens
-- Cookie-based Authentication
-- Logout
-- Password Encryption using bcrypt
+| Authentication | Videos | Social |
+|---------------|--------|--------|
+| JWT Login | Upload Videos | Like Videos |
+| Register | Edit Videos | Comments |
+| Refresh Tokens | Delete Videos | Subscribe Channels |
+| Logout | Custom Thumbnails | Community Posts |
+| HTTP Only Cookies | Video Streaming | Creator Profiles |
 
 ---
 
-## 🎥 Video Management
-
-- Upload Videos
-- Edit Video Details
-- Delete Videos
-- Upload Custom Thumbnails
-- Video Streaming
-- Publish / Unpublish Videos
-- View Count Tracking
-- Search Videos
+| User Dashboard | Playlist | Security |
+|---------------|----------|----------|
+| Channel Analytics | Create Playlist | JWT Authentication |
+| Uploaded Videos | Add Videos | Refresh Tokens |
+| Profile Management | Remove Videos | Password Hashing |
+| Subscriber Count | Delete Playlist | Protected Routes |
 
 ---
 
-## ❤️ User Engagement
-
-- Like / Unlike Videos
-- Comment System
-- Subscribe / Unsubscribe Channels
-- Channel Statistics
-- Creator Profiles
-
----
-
-## 📂 Playlist
-
-- Create Playlist
-- Rename Playlist
-- Delete Playlist
-- Add Videos
-- Remove Videos
-- View Playlist
-
----
-
-## 🐦 Tweets / Community Posts
-
-- Create Posts
-- Edit Posts
-- Delete Posts
-- View User Posts
-
----
-
-## 👨‍💻 Dashboard
-
-- Uploaded Videos
-- Subscriber Count
-- Total Likes
-- Channel Analytics
-- User Profile
-
----
-
-## ☁️ Cloud Storage
-
-- Cloudinary Video Upload
-- Cloudinary Thumbnail Upload
-- Optimized Media Delivery
-
----
-
-## 🔒 Security
-
-- JWT Authentication
-- Refresh Token Rotation
-- Protected Routes
-- Password Hashing
-- HTTP Only Cookies
-- Authentication Middleware
-
----
-
-## 📱 Responsive Design
-
-- Mobile Responsive
-- Tablet Responsive
-- Desktop Responsive
-- Dark Theme Ready
-
----
-
-# 🏗️ System Architecture
-
-```text
-                +----------------------+
-                |      React App       |
-                +----------+-----------+
-                           |
-                     REST API Calls
-                           |
-                +----------v-----------+
-                |   Express Backend    |
-                +----------+-----------+
-                           |
-      +--------------------+------------------+
-      |                                       |
-+-----v------+                        +--------v--------+
-| MongoDB    |                        |   Cloudinary    |
-| Database   |                        | Media Storage   |
-+------------+                        +-----------------+
-```
-
----
-
-# 🛠️ Tech Stack
+# 🛠 Tech Stack
 
 ## Frontend
 
@@ -157,7 +70,7 @@ Built with scalability, security, and performance in mind, VidVerse follows indu
 - React Router DOM
 - Axios
 - React Hot Toast
-- Motion
+- Framer Motion
 - Lucide React
 
 ---
@@ -176,17 +89,91 @@ Built with scalability, security, and performance in mind, VidVerse follows indu
 
 ---
 
-## Development Tools
+## Tools
 
 - Git
 - GitHub
 - MongoDB Atlas
 - Postman
 - VS Code
+- Vercel
+- Render
 
 ---
 
-# 📂 Folder Structure
+# 🏗 Architecture
+
+```text
+                     React + Vite
+                           │
+                     REST API Calls
+                           │
+                  Express.js Backend
+                           │
+         ┌─────────────────┴──────────────────┐
+         │                                    │
+     MongoDB Atlas                      Cloudinary
+(Database & Users)               (Video & Image Storage)
+```
+
+---
+
+# 🚀 Key Features
+
+## 🔐 Authentication
+
+- JWT Authentication
+- Refresh Tokens
+- Secure Cookies
+- Password Encryption
+- Protected Routes
+
+---
+
+## 🎥 Video Module
+
+- Upload Videos
+- Stream Videos
+- Publish / Unpublish
+- Edit Metadata
+- Delete Videos
+- Upload Thumbnails
+- Search Videos
+- View Counter
+
+---
+
+## ❤️ Social Features
+
+- Likes
+- Comments
+- Subscriptions
+- Creator Channels
+- Community Posts
+
+---
+
+## 📂 Playlist
+
+- Create Playlist
+- Delete Playlist
+- Rename Playlist
+- Add Videos
+- Remove Videos
+
+---
+
+## 👤 Dashboard
+
+- Profile Management
+- Uploaded Videos
+- Subscriber Count
+- Total Likes
+- Channel Statistics
+
+---
+
+# 📁 Folder Structure
 
 ```text
 VidVerse
@@ -194,23 +181,23 @@ VidVerse
 ├── backend
 │   ├── src
 │   │   ├── controllers
-│   │   ├── models
 │   │   ├── routes
+│   │   ├── models
 │   │   ├── middlewares
-│   │   ├── db
 │   │   ├── utils
 │   │   ├── services
+│   │   ├── db
 │   │   └── app.js
 │   │
 │   └── package.json
 │
 ├── frontend
 │   ├── src
-│   │   ├── components
 │   │   ├── pages
+│   │   ├── components
 │   │   ├── hooks
-│   │   ├── services
 │   │   ├── context
+│   │   ├── services
 │   │   ├── utils
 │   │   └── App.jsx
 │   │
@@ -221,28 +208,9 @@ VidVerse
 
 ---
 
-# 🚀 Getting Started
+# ⚙ Environment Variables
 
-## Clone Repository
-
-```bash
-git clone https://github.com/your-username/VidVerse.git
-```
-
-```bash
-cd VidVerse
-```
-
----
-
-## Backend Setup
-
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file:
+## Backend
 
 ```env
 PORT=8000
@@ -266,220 +234,246 @@ CLOUDINARY_API_SECRET=
 CORS_ORIGIN=http://localhost:5173
 ```
 
-Run the backend:
-
-```bash
-npm run dev
-```
-
 ---
 
-## Frontend Setup
-
-```bash
-cd frontend
-npm install
-```
-
-Create a `.env` file:
+## Frontend
 
 ```env
 VITE_API_URL=http://localhost:8000/api/v1
 ```
 
-Run the frontend:
+---
+
+# 🚀 Installation
+
+## Clone Repository
 
 ```bash
+git clone https://github.com/YOUR_GITHUB_USERNAME/VidVerse.git
+```
+
+```bash
+cd VidVerse
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+npm install
+
 npm run dev
 ```
 
 ---
 
-# 📬 REST API
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 📡 REST APIs
 
 ## Authentication
 
-```text
-POST   /users/register
-POST   /users/login
-POST   /users/logout
-POST   /users/refresh-token
-GET    /users/current-user
+```http
+POST /users/register
+POST /users/login
+POST /users/logout
+POST /users/refresh-token
+GET  /users/current-user
 ```
 
 ---
 
 ## Videos
 
-```text
-GET     /videos
-GET     /videos/:id
-POST    /videos
-PATCH   /videos/:id
-DELETE  /videos/:id
+```http
+GET    /videos
+GET    /videos/:id
+POST   /videos
+PATCH  /videos/:id
+DELETE /videos/:id
 ```
 
 ---
 
 ## Comments
 
-```text
-POST    /comments
-GET     /comments/:videoId
-DELETE  /comments/:id
+```http
+POST   /comments
+GET    /comments/:videoId
+DELETE /comments/:id
 ```
 
 ---
 
 ## Likes
 
-```text
-POST    /likes/video/:id
-POST    /likes/comment/:id
+```http
+POST /likes/video/:id
+POST /likes/comment/:id
 ```
 
 ---
 
-## Playlists
+## Playlist
 
-```text
-POST    /playlist
-GET     /playlist/:id
-PATCH   /playlist/:id
-DELETE  /playlist/:id
+```http
+POST   /playlist
+PATCH  /playlist/:id
+GET    /playlist/:id
+DELETE /playlist/:id
 ```
 
 ---
 
 ## Tweets
 
-```text
-POST    /tweets
-GET     /tweets
-PATCH   /tweets/:id
-DELETE  /tweets/:id
+```http
+POST   /tweets
+GET    /tweets
+PATCH  /tweets/:id
+DELETE /tweets/:id
 ```
 
 ---
 
-## Subscriptions
+## Subscription
 
-```text
-POST    /subscriptions/:channelId
-GET     /subscriptions/channel/:id
+```http
+POST /subscriptions/:channelId
+GET  /subscriptions/channel/:id
 ```
 
 ---
 
-# 📊 Database Design
-
-```text
-Users
-│
-├── Videos
-├── Comments
-├── Likes
-├── Playlists
-├── Tweets
-└── Subscriptions
-```
-
----
-
-# 🔐 Authentication Flow
+# 🔒 Authentication Flow
 
 ```text
 Register
-    ↓
+      │
+      ▼
 Login
-    ↓
+      │
+      ▼
 JWT Generated
-    ↓
-Stored in HTTP-Only Cookies
-    ↓
+      │
+      ▼
+HTTP Only Cookies
+      │
+      ▼
 Protected Routes
-    ↓
+      │
+      ▼
 Refresh Token
-    ↓
+      │
+      ▼
 Logout
 ```
 
 ---
 
-# 📈 Future Improvements
+# 📦 Deployment
 
-- AI Video Recommendations
-- Live Streaming
-- Watch History
-- Watch Later
-- Trending Algorithm
-- Infinite Scrolling
-- Video Categories
-- Notification System
-- Email Verification
-- Forgot Password
-- Google Authentication
-- Video Analytics Dashboard
-- Admin Panel
-- Real-time Chat
-- Real-time Notifications
+| Service | Platform |
+|----------|----------|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | MongoDB Atlas |
+| Media | Cloudinary |
 
 ---
 
 # 🧪 Testing
 
-- REST APIs tested using Postman
-- MongoDB Atlas Integration
-- Cloudinary Upload Testing
-- Authentication Middleware Validation
+✔ Postman API Testing
+
+✔ MongoDB Atlas Integration
+
+✔ Authentication Middleware
+
+✔ Cloudinary Uploads
+
+✔ Responsive UI Testing
+
+---
+
+# 🚀 Future Scope
+
+- AI Video Recommendation
+- Watch History
+- Watch Later
+- Live Streaming
+- Notifications
+- Email Verification
+- Google Authentication
+- Infinite Scrolling
+- Admin Dashboard
+- Real-Time Chat
+- Trending Algorithm
+- Analytics Dashboard
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome.
+Contributions are welcome!
 
-1. Fork the repository
-2. Create a new branch
-3. Commit your changes
-4. Push to GitHub
-5. Open a Pull Request
+```bash
+Fork 🍴
+
+Clone 📥
+
+Create Branch 🌿
+
+Commit Changes ✅
+
+Push 🚀
+
+Open Pull Request 🎉
+```
+
+---
+
+# 👨‍💻 Developer
+
+## Charvi Singh
+
+**B.Tech Information Technology**
+
+**National Institute of Technology Kurukshetra**
+
+### Connect with me
+
+- GitHub : https://github.com/YOUR_GITHUB_USERNAME
+- LinkedIn : https://linkedin.com/in/YOUR_LINKEDIN
+- Email : YOUR_EMAIL
 
 ---
 
 # ⭐ Support
 
-If you found this project useful, please consider giving it a ⭐ on GitHub.
+If you found this project useful, consider giving it a ⭐ on GitHub.
 
----
-
-# 👨‍💻 Author
-
-**Charvi Singh**
-
-B.Tech Information Technology
-
-National Institute of Technology Kurukshetra
-
-GitHub: https://github.com/your-username
-
-LinkedIn: https://linkedin.com/in/your-profile
-
-Email: your-email@example.com
-
----
-
-# 📄 License
-
-Licensed under the MIT License.
+It motivates me to build more open-source projects.
 
 ---
 
 <div align="center">
 
-### Built with ❤️ by Charvi Singh
+## 🚀 Built with ❤️ by Charvi Singh
 
-⭐ If you like this project, don't forget to star the repository!
+### ⭐ Star this repository if you like it!
 
 </div>
-
